@@ -8,6 +8,7 @@ const Product = require('../models/products');
 router.get('/', (req, res) =>{
     Order.find()
     .select('quantity product _id')
+    .populate('product', 'name')
     .exec()
     .then(docs => {
         const response = {
@@ -76,6 +77,7 @@ router.get('/:orderId', (req, res) =>{
     const id = req.params.orderId;
     Order.findById(id)
     .select('quantity product _id')
+    .populate('product')
     .exec()
     .then(doc => {
         console.log(doc);

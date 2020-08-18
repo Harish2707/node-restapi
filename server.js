@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 
 const productRoute = require('./api/routes/products');
 const orderRoute = require('./api/routes/orders');
+const { use } = require('./api/routes/orders');
 
 mongoose.connect('mongodb+srv://dbUser:admin@test-cluster-pjmgp.mongodb.net/test?retryWrites=true&w=majority', 
     {
@@ -18,6 +19,7 @@ mongoose.connect('mongodb+srv://dbUser:admin@test-cluster-pjmgp.mongodb.net/test
 const port = process.env.PORT || 3000;
 
 app.use(morgan('dev'));
+app.use('/uploads',express.static('uploads'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
