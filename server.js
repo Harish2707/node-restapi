@@ -6,12 +6,14 @@ const mongoose = require('mongoose');
 
 const productRoute = require('./api/routes/products');
 const orderRoute = require('./api/routes/orders');
-const { use } = require('./api/routes/orders');
+const userRoute = require('./api/routes/user');
+// const { use } = require('./api/routes/orders');
 
 mongoose.connect('mongodb+srv://dbUser:admin@test-cluster-pjmgp.mongodb.net/test?retryWrites=true&w=majority', 
     {
         useNewUrlParser: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
+        useCreateIndex: true
     },
     console.log("DB connection successful")
 );
@@ -37,6 +39,7 @@ app.use((req, res, next) => {
 //Routes which should handle requests
 app.use('/products', productRoute);
 app.use('/orders', orderRoute);
+app.use('/user', userRoute);
 
 app.use((req, res, next) =>{
     const error = new Error('Not Found');
